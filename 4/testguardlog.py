@@ -17,5 +17,10 @@ class TestFabric(unittest.TestCase):
         # Verify that test input renders the answer 240
         self.assertEqual(testgl.get_id_minute(), 240)
 
+    def test_get_most_frequent(self):
+        testgl = guardlog.GuardLog('test.txt')
+        testgl.parse_input()
+        self.assertEqual(testgl.get_id_minute_most_frequent(), 4455)
+
 if __name__ == '__main__':
     unittest.main()

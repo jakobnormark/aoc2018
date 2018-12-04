@@ -93,7 +93,7 @@ class GuardLog:
                 max = i
 
         print('Looks like most minute slept for guard_id: ' + str(guard_id + ' is minute ' + str(max)))
-        return max
+        return max, sleep_array[max]
 
     def get_id_minute(self):
         ''' Return guard id multiplied by minute '''
@@ -103,6 +103,21 @@ class GuardLog:
         guard_id = self.get_guard_id_most_asleep()
 
         #Get which minute the guard sleeps the most
-        minute = self.get_most_minute_slept(guard_id)
+        minute, _ = self.get_most_minute_slept(guard_id)
         
         return int(guard_id) * minute
+
+    def get_id_minute_most_frequent(self):
+        ''' Return guard id multiplied by minute for the most frequent minute '''
+        high_guard_id = 0
+        high_minute = 0
+        max = 0
+
+        for guard in self.get_guard_ids():
+            minute, minutes_slept = self.get_most_minute_slept(guard)
+            if minutes_slept > max:
+                high_guard_id = guard
+                high_minute = minute
+                max = minutes_slept
+        
+        return int(high_guard_id) * high_minute
