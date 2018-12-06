@@ -1,7 +1,5 @@
 #!/usr/local/bin/python3
 
-import bisect
-
 ''' Advent of code 2018-12-04 '''
 
 class GuardLog:
