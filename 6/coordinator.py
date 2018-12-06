@@ -95,11 +95,12 @@ class Coordinator():
 
             for x in range(0, self.xmax):
                 for y in range(0, self.ymax):
-                    if self.grid[x][y].upper() == poi:
-                        if x == 0 or x == self.xmax or y == 0 or y == self.ymax:
+                    if self.grid[x][y] == poi and finite:
+                        if poi == '5':
+                            print(str(x) + ',' + str(y))
+                        if x == 0 or x == self.xmax-1 or y == 0 or y == self.ymax-1:
                             print(poi + ' is infinite')
                             finite = False
-                            break
                         else:
                             coordinate_area = coordinate_area + 1
 
