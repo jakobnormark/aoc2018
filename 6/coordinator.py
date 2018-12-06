@@ -41,9 +41,23 @@ class Coordinator():
             self.grid[x][y] = poi
             poi = chr(ord(poi) + 1)
 
-        print(str(self.xmax))
-        print(str(self.ymax))
-        #print(str(self.grid))
+    def get_manhattan_region(self, allowed_distance):
+        ''' Get the area of region where manhattan distance to 
+            all coordinates are less than distance '''
+        region = 0
+        for x in range(0, self.xmax):
+            for y in range(0, self.ymax):
+                distance_sum = 0
+                for coordinate in self.coordinates:
+                    coord_x = coordinate[0]
+                    coord_y = coordinate[1]
+                    coord_distance = abs(x-coord_x) + abs(y-coord_y)
+                    distance_sum = distance_sum + coord_distance
+                if distance_sum < allowed_distance:
+                    region = region + 1
+
+        return region
+
 
     def populate_manhattan_distances(self):
         ''' Calculate Manhattan distance to each letter coordinate
@@ -71,8 +85,6 @@ class Coordinator():
                     
                     self.grid[x][y] = closest_poi
 
-        self.print_grid()
-
     def print_grid(self):
         grid = ''
         for y in range(0, self.ymax):
@@ -96,10 +108,7 @@ class Coordinator():
             for x in range(0, self.xmax):
                 for y in range(0, self.ymax):
                     if self.grid[x][y] == poi and finite:
-                        if poi == '5':
-                            print(str(x) + ',' + str(y))
                         if x == 0 or x == self.xmax-1 or y == 0 or y == self.ymax-1:
-                            print(poi + ' is infinite')
                             finite = False
                         else:
                             coordinate_area = coordinate_area + 1
@@ -111,5 +120,4 @@ class Coordinator():
 
             poi = chr(ord(poi) + 1)
 
-        print(largest_poi + ' area is ' + str(largest_area))
         return largest_area
